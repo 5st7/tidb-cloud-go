@@ -1,0 +1,49 @@
+package: models
+generate:
+  models: true
+  client: false
+  chi-server: false
+  gin-server: false
+  gorilla-server: false
+  strict-server: false
+  echo-server: false
+  fiber-server: false
+  embedded-spec: false
+output-options:
+  skip-prune: true
+  skip-fmt: false
+  user-templates: false
+  exclude-schemas: []
+  include-tags: []
+  exclude-tags: []
+  additional-imports: []
+  exclude-paths: []
+  include-paths: []
+  import-mapping: {}
+  output: pkg/models/types.go
+compatibility:
+  always-prefix-enum-values: true
+  old-config-style: false
+  skip-enum-schema-validation: false
+  disable-required-readonly-as-optional: false
+  apply-chi-middleware-first-to-last: false
+  flatten-additional-properties: false
+  old-client-generation: false
+  old-merge-additional-properties: false
+  old-generate-additional-properties: false
+  old-handle-nullable-required-fields: false
+  old-naming-to-new-naming: false
+  old-default-parameter-names: false
+  old-specification-extensions: false
+  old-remove-unused-parameters: false
+  old-validate-spec: false
+  old-skip-optional-query-params: false
+  old-generate-struct-tags: false
+  old-generate-runtime-unmarshal: false
+  old-generate-security-schemes: false
+  old-generate-stream-server: false
+  old-generate-client-with-responses: false
+  old-generate-server-with-responses: false
+  old-generate-client-with-closures: false
+  old-generate-server-with-closures: false
+  old-generate-runtime-struct-tags: false
