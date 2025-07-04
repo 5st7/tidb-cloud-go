@@ -17,7 +17,7 @@ func main() {
 	// Get API credentials from environment variables
 	publicKey := os.Getenv("TIDB_CLOUD_PUBLIC_KEY")
 	privateKey := os.Getenv("TIDB_CLOUD_PRIVATE_KEY")
-	
+
 	if publicKey == "" || privateKey == "" {
 		log.Fatal("Please set TIDB_CLOUD_PUBLIC_KEY and TIDB_CLOUD_PRIVATE_KEY environment variables")
 	}
@@ -72,7 +72,7 @@ func main() {
 
 	// Example 1: List all private endpoints in the project
 	fmt.Println("\n=== Listing All Private Endpoints in Project ===")
-	
+
 	allEndpoints, err := client.ListPrivateEndpointsOfProject(ctx, projectID)
 	if err != nil {
 		log.Printf("Failed to list project private endpoints: %v", err)
@@ -92,19 +92,19 @@ func main() {
 
 	// Example 2: Check if private endpoint service exists for the cluster
 	fmt.Println("=== Checking Private Endpoint Service ===")
-	
+
 	service, err := client.GetPrivateEndpointService(ctx, projectID, clusterID)
 	if err != nil {
 		fmt.Printf("No private endpoint service found, creating one...\n")
-		
+
 		// Example 3: Create private endpoint service
 		fmt.Println("\n=== Creating Private Endpoint Service ===")
-		
+
 		service, err = client.CreatePrivateEndpointService(ctx, projectID, clusterID)
 		if err != nil {
 			log.Fatalf("Failed to create private endpoint service: %v", err)
 		}
-		
+
 		fmt.Println("Private endpoint service created successfully!")
 	} else {
 		fmt.Println("Private endpoint service already exists!")
@@ -123,7 +123,7 @@ func main() {
 
 	// Example 4: List existing private endpoints for the cluster
 	fmt.Println("\n=== Listing Private Endpoints for Cluster ===")
-	
+
 	endpoints, err := client.ListPrivateEndpoints(ctx, projectID, clusterID)
 	if err != nil {
 		log.Printf("Failed to list private endpoints: %v", err)
@@ -169,7 +169,7 @@ func main() {
 			fmt.Println("and run with 'create-endpoint' argument")
 		} else {
 			fmt.Printf("\n=== Creating Private Endpoint with ID: %s ===\n", endpointName)
-			
+
 			createReq := &models.OpenapiCreatePrivateEndpointReq{
 				EndpointName: stringPtr(endpointName),
 			}
@@ -182,35 +182,35 @@ func main() {
 				fmt.Printf("  ID: %s\n", safeString(endpoint.ID))
 				fmt.Printf("  Status: %s\n", safeString(endpoint.Status))
 				fmt.Printf("  Message: %s\n", safeString(endpoint.Message))
-				
+
 				// Monitor connection status
 				fmt.Println("\n=== Monitoring Private Endpoint Status ===")
 				for i := 0; i < 10; i++ {
 					time.Sleep(30 * time.Second)
-					
+
 					endpoints, err := client.ListPrivateEndpoints(ctx, projectID, clusterID)
 					if err != nil {
 						log.Printf("Failed to check endpoint status: %v", err)
 						continue
 					}
-					
+
 					for _, ep := range endpoints.Items {
 						if ep.ID != nil && *ep.ID == *endpoint.ID {
 							status := safeString(ep.Status)
 							fmt.Printf("Endpoint status: %s\n", status)
-							
+
 							if status == "ACTIVE" {
 								fmt.Println("Private endpoint is now active!")
 								return
 							}
-							
+
 							if status == "FAILED" {
 								fmt.Printf("Private endpoint failed: %s\n", safeString(ep.Message))
 								return
 							}
 						}
 					}
-					
+
 					fmt.Printf("Waiting for endpoint to be active... (attempt %d/10)\n", i+1)
 				}
 			}

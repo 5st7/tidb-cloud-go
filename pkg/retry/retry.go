@@ -81,7 +81,7 @@ func NewRetryExecutor(policy *RetryPolicy) *RetryExecutor {
 // non-retryable error, or the maximum attempts are reached.
 func (e *RetryExecutor) Execute(ctx context.Context, operation func() error) error {
 	var lastErr error
-	
+
 	for attempt := 0; attempt <= e.policy.MaxAttempts; attempt++ {
 		err := operation()
 		if err == nil {
@@ -97,7 +97,7 @@ func (e *RetryExecutor) Execute(ctx context.Context, operation func() error) err
 
 		// Calculate and wait for delay
 		delay := e.policy.CalculateDelay(attempt + 1)
-		
+
 		select {
 		case <-ctx.Done():
 			return ctx.Err()

@@ -35,10 +35,10 @@ func (e APIError) IsRateLimitError() bool {
 func (e APIError) IsRetryable() bool {
 	switch e.StatusCode {
 	case http.StatusTooManyRequests,
-		 http.StatusInternalServerError,
-		 http.StatusBadGateway,
-		 http.StatusServiceUnavailable,
-		 http.StatusGatewayTimeout:
+		http.StatusInternalServerError,
+		http.StatusBadGateway,
+		http.StatusServiceUnavailable,
+		http.StatusGatewayTimeout:
 		return true
 	default:
 		return false

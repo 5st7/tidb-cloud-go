@@ -16,7 +16,7 @@ func (c *Client) ListClusters(projectID string) (*models.OpenapiListClustersOfPr
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters", c.baseURL, APIVersion, projectID)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -50,7 +50,7 @@ func (c *Client) GetCluster(projectID, clusterID string) (*models.OpenapiCluster
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s", c.baseURL, APIVersion, projectID, clusterID)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -84,7 +84,7 @@ func (c *Client) CreateCluster(projectID string, req *models.OpenapiCreateCluste
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters", c.baseURL, APIVersion, projectID)
-	
+
 	reqBody, err := json.Marshal(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal request: %w", err)
@@ -127,7 +127,7 @@ func (c *Client) UpdateCluster(projectID, clusterID string, req *models.OpenapiU
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s", c.baseURL, APIVersion, projectID, clusterID)
-	
+
 	reqBody, err := json.Marshal(req)
 	if err != nil {
 		return fmt.Errorf("failed to marshal request: %w", err)
@@ -162,7 +162,7 @@ func (c *Client) DeleteCluster(projectID, clusterID string) error {
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s", c.baseURL, APIVersion, projectID, clusterID)
-	
+
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return fmt.Errorf("failed to create request: %w", err)

@@ -150,18 +150,18 @@ func TestDigestAuth_GenerateAuthHeader(t *testing.T) {
 }
 
 func containsDigestFields(header string) bool {
-	return len(header) > 0 && 
-		   header[:6] == "Digest" &&
-		   contains(header, "username=") &&
-		   contains(header, "realm=") &&
-		   contains(header, "nonce=") &&
-		   contains(header, "uri=") &&
-		   contains(header, "response=")
+	return len(header) > 0 &&
+		header[:6] == "Digest" &&
+		contains(header, "username=") &&
+		contains(header, "realm=") &&
+		contains(header, "nonce=") &&
+		contains(header, "uri=") &&
+		contains(header, "response=")
 }
 
 func contains(s, substr string) bool {
-	return len(s) >= len(substr) && s[:len(substr)] == substr || 
-		   len(s) > len(substr) && containsAt(s, substr, 1)
+	return len(s) >= len(substr) && s[:len(substr)] == substr ||
+		len(s) > len(substr) && containsAt(s, substr, 1)
 }
 
 func containsAt(s, substr string, start int) bool {

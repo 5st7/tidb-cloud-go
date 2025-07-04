@@ -17,7 +17,7 @@ func main() {
 	// Get API credentials from environment variables
 	publicKey := os.Getenv("TIDB_CLOUD_PUBLIC_KEY")
 	privateKey := os.Getenv("TIDB_CLOUD_PRIVATE_KEY")
-	
+
 	if publicKey == "" || privateKey == "" {
 		log.Fatal("Please set TIDB_CLOUD_PUBLIC_KEY and TIDB_CLOUD_PRIVATE_KEY environment variables")
 	}
@@ -56,7 +56,7 @@ func main() {
 
 	// Example 1: List existing backups
 	fmt.Println("\n=== Listing Existing Backups ===")
-	
+
 	backups, err := client.ListBackups(projectID, clusterID)
 	if err != nil {
 		log.Fatalf("Failed to list backups: %v", err)
@@ -78,7 +78,7 @@ func main() {
 
 	// Example 2: Create a new backup
 	fmt.Println("=== Creating a New Backup ===")
-	
+
 	backupName := fmt.Sprintf("sdk-demo-backup-%d", time.Now().Unix())
 	createBackupReq := &models.OpenapiCreateBackupReq{
 		Name:        stringPtr(backupName),
@@ -95,10 +95,10 @@ func main() {
 
 	// Example 3: Monitor backup progress
 	fmt.Println("\n=== Monitoring Backup Progress ===")
-	
+
 	for i := 0; i < 20; i++ {
 		time.Sleep(30 * time.Second)
-		
+
 		backupInfo, err := client.GetBackup(projectID, clusterID, backupID)
 		if err != nil {
 			log.Printf("Failed to get backup info: %v", err)
@@ -107,29 +107,29 @@ func main() {
 
 		status := safeString(backupInfo.Status.BackupStatus)
 		fmt.Printf("Backup status: %s", status)
-		
+
 		if backupInfo.BackupSizeBytes != nil && *backupInfo.BackupSizeBytes > 0 {
 			fmt.Printf(" (Size: %d bytes)", *backupInfo.BackupSizeBytes)
 		}
 		fmt.Println()
-		
+
 		if status == "SUCCESS" {
 			fmt.Println("Backup completed successfully!")
 			fmt.Printf("Final size: %d bytes\n", safeInt64(backupInfo.BackupSizeBytes))
 			break
 		}
-		
+
 		if status == "FAILED" {
 			fmt.Printf("Backup failed!\n")
 			return
 		}
-		
+
 		fmt.Printf("Waiting for backup to complete... (attempt %d/20)\n", i+1)
 	}
 
 	// Example 4: List all restores in the project
 	fmt.Println("\n=== Listing Existing Restores ===")
-	
+
 	restores, err := client.ListRestores(projectID)
 	if err != nil {
 		log.Printf("Failed to list restores: %v", err)
@@ -141,8 +141,8 @@ func main() {
 			fmt.Printf("  Backup ID: %s\n", safeString(restore.BackupID))
 			fmt.Printf("  Status: %s\n", safeString(restore.Status.RestoreStatus))
 			if restore.ClusterInfo != nil {
-				fmt.Printf("  Cluster: %s (%s)\n", 
-					safeString(restore.ClusterInfo.Name), 
+				fmt.Printf("  Cluster: %s (%s)\n",
+					safeString(restore.ClusterInfo.Name),
 					safeString(restore.ClusterInfo.ID))
 			}
 			fmt.Printf("  Created: %s\n", safeString(restore.CreateTimestamp))
@@ -155,7 +155,7 @@ func main() {
 
 	// Example 5: Create a restore (create a new cluster from backup)
 	fmt.Println("=== Creating a Restore (New Cluster from Backup) ===")
-	
+
 	restoreName := fmt.Sprintf("sdk-demo-restore-%d", time.Now().Unix())
 	createRestoreReq := &models.OpenapiCreateRestoreReq{
 		BackupID: stringPtr(backupID),
@@ -169,9 +169,9 @@ func main() {
 					NodeQuantity: int64Ptr(1),
 				},
 				TiKV: &models.OpenapiUpdateTiKVComponent{
-					NodeSize:        stringPtr("8C32G"),
-					NodeQuantity:    int64Ptr(3),
-					StorageSizeGib:  int64Ptr(500),
+					NodeSize:       stringPtr("8C32G"),
+					NodeQuantity:   int64Ptr(3),
+					StorageSizeGib: int64Ptr(500),
 				},
 			},
 		},
@@ -186,10 +186,10 @@ func main() {
 
 		// Example 6: Monitor restore progress
 		fmt.Println("\n=== Monitoring Restore Progress ===")
-		
+
 		for i := 0; i < 20; i++ {
 			time.Sleep(60 * time.Second) // Restores take longer than backups
-			
+
 			restoreInfo, err := client.GetRestore(projectID, restoreID)
 			if err != nil {
 				log.Printf("Failed to get restore info: %v", err)
@@ -198,29 +198,29 @@ func main() {
 
 			status := safeString(restoreInfo.Status.RestoreStatus)
 			fmt.Printf("Restore status: %s\n", status)
-			
+
 			if status == "SUCCESS" {
 				fmt.Println("Restore completed successfully!")
 				if restoreInfo.ClusterInfo != nil {
-					fmt.Printf("New cluster created: %s (%s)\n", 
+					fmt.Printf("New cluster created: %s (%s)\n",
 						safeString(restoreInfo.ClusterInfo.Name),
 						safeString(restoreInfo.ClusterInfo.ID))
 				}
 				break
 			}
-			
+
 			if status == "FAILED" {
 				fmt.Printf("Restore failed!\n")
 				break
 			}
-			
+
 			fmt.Printf("Waiting for restore to complete... (attempt %d/20)\n", i+1)
 		}
 	}
 
 	// Example 7: Clean up - delete the backup we created
 	fmt.Println("\n=== Cleanup: Deleting Test Backup ===")
-	
+
 	err = client.DeleteBackup(projectID, clusterID, backupID)
 	if err != nil {
 		log.Printf("Failed to delete backup: %v", err)

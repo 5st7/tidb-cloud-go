@@ -11,7 +11,7 @@ import (
 
 func TestRetryPolicy_ShouldRetry(t *testing.T) {
 	policy := NewRetryPolicy()
-	
+
 	tests := []struct {
 		name     string
 		err      error
@@ -68,7 +68,7 @@ func TestRetryPolicy_ShouldRetry(t *testing.T) {
 
 func TestRetryPolicy_CalculateDelay(t *testing.T) {
 	policy := NewRetryPolicy()
-	
+
 	tests := []struct {
 		name     string
 		attempt  int
@@ -103,7 +103,7 @@ func TestRetryPolicy_CalculateDelay(t *testing.T) {
 
 func TestRetryExecutor_Execute(t *testing.T) {
 	executor := NewRetryExecutor(NewRetryPolicy())
-	
+
 	t.Run("successful on first attempt", func(t *testing.T) {
 		callCount := 0
 		operation := func() error {

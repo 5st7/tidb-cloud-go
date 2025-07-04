@@ -52,7 +52,7 @@ func TestClient_ListBackups(t *testing.T) {
 					},
 					Total: int64Ptr(1),
 				}
-				
+
 				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(response)
 			},
@@ -139,7 +139,7 @@ func TestClient_CreateBackup(t *testing.T) {
 				response := models.OpenapiCreateBackupResp{
 					BackupID: stringPtr("new-backup-123"),
 				}
-				
+
 				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(response)
 			},

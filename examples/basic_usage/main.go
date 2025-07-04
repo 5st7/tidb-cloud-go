@@ -18,7 +18,7 @@ func main() {
 	// Get API credentials from environment variables
 	publicKey := os.Getenv("TIDB_CLOUD_PUBLIC_KEY")
 	privateKey := os.Getenv("TIDB_CLOUD_PRIVATE_KEY")
-	
+
 	if publicKey == "" || privateKey == "" {
 		log.Fatal("Please set TIDB_CLOUD_PUBLIC_KEY and TIDB_CLOUD_PRIVATE_KEY environment variables")
 	}
@@ -43,9 +43,9 @@ func main() {
 
 	fmt.Printf("Found %d projects:\n", len(projects.Items))
 	for _, project := range projects.Items {
-		fmt.Printf("- ID: %s, Name: %s, Clusters: %d\n", 
-			safeString(project.ID), 
-			safeString(project.Name), 
+		fmt.Printf("- ID: %s, Name: %s, Clusters: %d\n",
+			safeString(project.ID),
+			safeString(project.Name),
 			safeInt64(project.ClusterCount))
 	}
 
@@ -53,7 +53,7 @@ func main() {
 	if len(projects.Items) > 0 {
 		projectID := safeString(projects.Items[0].ID)
 		fmt.Printf("\n=== Listing Clusters for Project %s ===\n", projectID)
-		
+
 		clusters, err := client.ListClusters(projectID)
 		if err != nil {
 			handleError("listing clusters", err)
@@ -75,7 +75,7 @@ func main() {
 		if len(clusters.Items) > 0 {
 			clusterID := safeString(clusters.Items[0].ID)
 			fmt.Printf("\n=== Listing Backups for Cluster %s ===\n", clusterID)
-			
+
 			backups, err := client.ListBackups(projectID, clusterID)
 			if err != nil {
 				handleError("listing backups", err)
@@ -94,7 +94,7 @@ func main() {
 
 			// Example 4: List private endpoints for the cluster
 			fmt.Printf("\n=== Listing Private Endpoints for Cluster %s ===\n", clusterID)
-			
+
 			endpoints, err := client.ListPrivateEndpoints(ctx, projectID, clusterID)
 			if err != nil {
 				handleError("listing private endpoints", err)
@@ -138,14 +138,14 @@ func main() {
 // handleError demonstrates proper error handling for TiDB Cloud API errors
 func handleError(operation string, err error) {
 	fmt.Printf("Error %s: %v\n", operation, err)
-	
+
 	// Check if it's a TiDB Cloud API error
 	if apiErr, ok := err.(errors.APIError); ok {
 		fmt.Printf("API Error Details:\n")
 		fmt.Printf("  Status Code: %d\n", apiErr.StatusCode)
 		fmt.Printf("  Error Code: %d\n", apiErr.Code)
 		fmt.Printf("  Message: %s\n", apiErr.Message)
-		
+
 		// Check specific error types
 		switch {
 		case apiErr.IsAuthenticationError():
@@ -163,7 +163,7 @@ func handleError(operation string, err error) {
 		default:
 			fmt.Println("  Type: Unknown Error")
 		}
-		
+
 		if len(apiErr.Details) > 0 {
 			fmt.Printf("  Details: %v\n", apiErr.Details)
 		}

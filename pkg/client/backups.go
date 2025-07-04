@@ -19,7 +19,7 @@ func (c *Client) ListBackups(projectID, clusterID string) (*models.OpenapiListBa
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s/backups", c.baseURL, APIVersion, projectID, clusterID)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -56,7 +56,7 @@ func (c *Client) GetBackup(projectID, clusterID, backupID string) (*models.Opena
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s/backups/%s", c.baseURL, APIVersion, projectID, clusterID, backupID)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -93,7 +93,7 @@ func (c *Client) CreateBackup(projectID, clusterID string, req *models.OpenapiCr
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s/backups", c.baseURL, APIVersion, projectID, clusterID)
-	
+
 	reqBody, err := json.Marshal(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal request: %w", err)
@@ -136,7 +136,7 @@ func (c *Client) DeleteBackup(projectID, clusterID, backupID string) error {
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s/backups/%s", c.baseURL, APIVersion, projectID, clusterID, backupID)
-	
+
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return fmt.Errorf("failed to create request: %w", err)

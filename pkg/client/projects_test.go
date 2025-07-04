@@ -11,10 +11,10 @@ import (
 
 func TestClient_ListProjects(t *testing.T) {
 	tests := []struct {
-		name           string
-		serverResponse func(w http.ResponseWriter, r *http.Request)
+		name             string
+		serverResponse   func(w http.ResponseWriter, r *http.Request)
 		expectedProjects int
-		expectedErr    bool
+		expectedErr      bool
 	}{
 		{
 			name: "successful response",
@@ -45,7 +45,7 @@ func TestClient_ListProjects(t *testing.T) {
 					},
 					Total: int64Ptr(1),
 				}
-				
+
 				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(response)
 			},
@@ -140,7 +140,7 @@ func TestClient_CreateProject(t *testing.T) {
 					ID:   stringPtr("new-project-123"),
 					Name: stringPtr("New Project"),
 				}
-				
+
 				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(response)
 			},

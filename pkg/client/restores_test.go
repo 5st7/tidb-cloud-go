@@ -52,7 +52,7 @@ func TestClient_ListRestores(t *testing.T) {
 					},
 					Total: int64Ptr(1),
 				}
-				
+
 				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(response)
 			},
@@ -151,7 +151,7 @@ func TestClient_CreateRestore(t *testing.T) {
 				response := models.OpenapiCreateRestoreResp{
 					RestoreID: stringPtr("new-restore-123"),
 				}
-				
+
 				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(response)
 			},

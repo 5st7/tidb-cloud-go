@@ -46,16 +46,16 @@ func (d *DigestAuth) ParseChallenge(authHeader string) error {
 	}
 
 	challengeData := strings.TrimPrefix(authHeader, "Digest ")
-	
+
 	// Parse key-value pairs
 	pairs := parseKeyValuePairs(challengeData)
-	
+
 	d.realm = pairs["realm"]
 	d.nonce = pairs["nonce"]
 	d.qop = pairs["qop"]
 	d.opaque = pairs["opaque"]
 	d.algorithm = pairs["algorithm"]
-	
+
 	if d.algorithm == "" {
 		d.algorithm = "MD5"
 	}
@@ -69,7 +69,7 @@ func (d *DigestAuth) ParseChallenge(authHeader string) error {
 
 	// Generate cnonce for this auth
 	d.cnonce = generateCnonce()
-	
+
 	return nil
 }
 
@@ -92,7 +92,7 @@ func (d *DigestAuth) GenerateAuthHeader(username, password, method, uri string) 
 
 	ha1 := d.generateHA1(username, password)
 	ha2 := d.generateHA2(method, uri)
-	
+
 	var response string
 	if d.qop == "auth" {
 		response = d.generateResponseWithQop(ha1, ha2)
@@ -107,17 +107,17 @@ func (d *DigestAuth) GenerateAuthHeader(username, password, method, uri string) 
 	authHeader.WriteString(fmt.Sprintf(`, nonce="%s"`, d.nonce))
 	authHeader.WriteString(fmt.Sprintf(`, uri="%s"`, uri))
 	authHeader.WriteString(fmt.Sprintf(`, response="%s"`, response))
-	
+
 	if d.qop != "" {
 		authHeader.WriteString(fmt.Sprintf(`, qop=%s`, d.qop))
 		authHeader.WriteString(fmt.Sprintf(`, nc=%08x`, d.nc))
 		authHeader.WriteString(fmt.Sprintf(`, cnonce="%s"`, d.cnonce))
 	}
-	
+
 	if d.opaque != "" {
 		authHeader.WriteString(fmt.Sprintf(`, opaque="%s"`, d.opaque))
 	}
-	
+
 	if d.algorithm != "" {
 		authHeader.WriteString(fmt.Sprintf(`, algorithm=%s`, d.algorithm))
 	}
@@ -139,7 +139,7 @@ func (d *DigestAuth) generateHA2(method, uri string) string {
 
 func (d *DigestAuth) generateResponseWithQop(ha1, ha2 string) string {
 	h := md5.New()
-	h.Write([]byte(fmt.Sprintf("%s:%s:%08x:%s:%s:%s", 
+	h.Write([]byte(fmt.Sprintf("%s:%s:%08x:%s:%s:%s",
 		ha1, d.nonce, d.nc, d.cnonce, d.qop, ha2)))
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
@@ -152,11 +152,11 @@ func (d *DigestAuth) generateResponseWithoutQop(ha1, ha2 string) string {
 
 func parseKeyValuePairs(data string) map[string]string {
 	pairs := make(map[string]string)
-	
+
 	// Use regex to find key="value" pairs
 	re := regexp.MustCompile(`(\w+)=(?:"([^"]*)"|([^,\s]+))`)
 	matches := re.FindAllStringSubmatch(data, -1)
-	
+
 	for _, match := range matches {
 		key := match[1]
 		value := match[2]
@@ -165,7 +165,7 @@ func parseKeyValuePairs(data string) map[string]string {
 		}
 		pairs[key] = value
 	}
-	
+
 	return pairs
 }
 

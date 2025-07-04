@@ -11,11 +11,11 @@ type OpenapiListProjectsResp struct {
 }
 
 type OpenapiListProjectItem struct {
-	ID           *string `json:"id,omitempty"`
-	OrgID        *string `json:"org_id,omitempty"`
-	Name         *string `json:"name,omitempty"`
-	ClusterCount *int64  `json:"cluster_count,omitempty"`
-	UserCount    *int64  `json:"user_count,omitempty"`
+	ID              *string `json:"id,omitempty"`
+	OrgID           *string `json:"org_id,omitempty"`
+	Name            *string `json:"name,omitempty"`
+	ClusterCount    *int64  `json:"cluster_count,omitempty"`
+	UserCount       *int64  `json:"user_count,omitempty"`
 	CreateTimestamp *string `json:"create_timestamp,omitempty"`
 }
 
@@ -46,15 +46,15 @@ type OpenapiListClustersOfProjectResp struct {
 }
 
 type OpenapiClusterItem struct {
-	ID            *string                        `json:"id,omitempty"`
-	Name          *string                        `json:"name,omitempty"`
-	ClusterType   *string                        `json:"cluster_type,omitempty"`
-	CloudProvider *string                        `json:"cloud_provider,omitempty"`
-	Region        *string                        `json:"region,omitempty"`
-	Status        *OpenapiClusterItemStatus      `json:"status,omitempty"`
-	Config        *OpenapiGetClusterConfig       `json:"config,omitempty"`
+	ID                *string                          `json:"id,omitempty"`
+	Name              *string                          `json:"name,omitempty"`
+	ClusterType       *string                          `json:"cluster_type,omitempty"`
+	CloudProvider     *string                          `json:"cloud_provider,omitempty"`
+	Region            *string                          `json:"region,omitempty"`
+	Status            *OpenapiClusterItemStatus        `json:"status,omitempty"`
+	Config            *OpenapiGetClusterConfig         `json:"config,omitempty"`
 	ConnectionStrings *OpenapiClusterConnectionStrings `json:"connection_strings,omitempty"`
-	CreateTimestamp *string                      `json:"create_timestamp,omitempty"`
+	CreateTimestamp   *string                          `json:"create_timestamp,omitempty"`
 }
 
 type OpenapiClusterItemStatus struct {
@@ -62,11 +62,11 @@ type OpenapiClusterItemStatus struct {
 }
 
 type OpenapiGetClusterConfig struct {
-	RootPassword *string                  `json:"root_password,omitempty"`
-	Port         *int64                   `json:"port,omitempty"`
-	Components   *OpenapiClusterComponents `json:"components,omitempty"`
+	RootPassword *string                    `json:"root_password,omitempty"`
+	Port         *int64                     `json:"port,omitempty"`
+	Components   *OpenapiClusterComponents  `json:"components,omitempty"`
 	IPAccessList []*OpenapiIpAccessListItem `json:"ip_access_list,omitempty"`
-	Paused       *bool                    `json:"paused,omitempty"`
+	Paused       *bool                      `json:"paused,omitempty"`
 }
 
 type OpenapiClusterComponents struct {
@@ -81,19 +81,19 @@ type OpenapiTiDBComponent struct {
 }
 
 type OpenapiTiKVComponent struct {
-	NodeSize        *string `json:"node_size,omitempty"`
-	NodeQuantity    *int64  `json:"node_quantity,omitempty"`
-	StorageSizeGib  *int64  `json:"storage_size_gib,omitempty"`
+	NodeSize       *string `json:"node_size,omitempty"`
+	NodeQuantity   *int64  `json:"node_quantity,omitempty"`
+	StorageSizeGib *int64  `json:"storage_size_gib,omitempty"`
 }
 
 type OpenapiTiFlashComponent struct {
-	NodeSize        *string `json:"node_size,omitempty"`
-	NodeQuantity    *int64  `json:"node_quantity,omitempty"`
-	StorageSizeGib  *int64  `json:"storage_size_gib,omitempty"`
+	NodeSize       *string `json:"node_size,omitempty"`
+	NodeQuantity   *int64  `json:"node_quantity,omitempty"`
+	StorageSizeGib *int64  `json:"storage_size_gib,omitempty"`
 }
 
 type OpenapiClusterConnectionStrings struct {
-	DefaultUser *string                  `json:"default_user,omitempty"`
+	DefaultUser *string                    `json:"default_user,omitempty"`
 	Standard    *OpenapiStandardConnection `json:"standard,omitempty"`
 }
 
@@ -108,19 +108,19 @@ type OpenapiIpAccessListItem struct {
 }
 
 type OpenapiCreateClusterReq struct {
-	Name          *string                `json:"name,omitempty"`
-	ClusterType   *string                `json:"cluster_type,omitempty"`
-	CloudProvider *string                `json:"cloud_provider,omitempty"`
-	Region        *string                `json:"region,omitempty"`
-	Config        *OpenapiClusterConfig  `json:"config,omitempty"`
+	Name          *string               `json:"name,omitempty"`
+	ClusterType   *string               `json:"cluster_type,omitempty"`
+	CloudProvider *string               `json:"cloud_provider,omitempty"`
+	Region        *string               `json:"region,omitempty"`
+	Config        *OpenapiClusterConfig `json:"config,omitempty"`
 }
 
 type OpenapiClusterConfig struct {
-	RootPassword *string                  `json:"root_password,omitempty"`
-	Port         *int64                   `json:"port,omitempty"`
-	Components   *OpenapiClusterComponents `json:"components,omitempty"`
+	RootPassword *string                    `json:"root_password,omitempty"`
+	Port         *int64                     `json:"port,omitempty"`
+	Components   *OpenapiClusterComponents  `json:"components,omitempty"`
 	IPAccessList []*OpenapiIpAccessListItem `json:"ip_access_list,omitempty"`
-	Paused       *bool                    `json:"paused,omitempty"`
+	Paused       *bool                      `json:"paused,omitempty"`
 }
 
 type OpenapiCreateClusterResp struct {
@@ -133,7 +133,7 @@ type OpenapiUpdateClusterReq struct {
 
 type OpenapiUpdateClusterConfig struct {
 	Components *OpenapiUpdateClusterComponents `json:"components,omitempty"`
-	Paused     *bool                          `json:"paused,omitempty"`
+	Paused     *bool                           `json:"paused,omitempty"`
 }
 
 type OpenapiUpdateClusterComponents struct {
@@ -148,15 +148,15 @@ type OpenapiUpdateTiDBComponent struct {
 }
 
 type OpenapiUpdateTiKVComponent struct {
-	NodeSize        *string `json:"node_size,omitempty"`
-	NodeQuantity    *int64  `json:"node_quantity,omitempty"`
-	StorageSizeGib  *int64  `json:"storage_size_gib,omitempty"`
+	NodeSize       *string `json:"node_size,omitempty"`
+	NodeQuantity   *int64  `json:"node_quantity,omitempty"`
+	StorageSizeGib *int64  `json:"storage_size_gib,omitempty"`
 }
 
 type OpenapiUpdateTiFlashComponent struct {
-	NodeSize        *string `json:"node_size,omitempty"`
-	NodeQuantity    *int64  `json:"node_quantity,omitempty"`
-	StorageSizeGib  *int64  `json:"storage_size_gib,omitempty"`
+	NodeSize       *string `json:"node_size,omitempty"`
+	NodeQuantity   *int64  `json:"node_quantity,omitempty"`
+	StorageSizeGib *int64  `json:"storage_size_gib,omitempty"`
 }
 
 // Backup API models
@@ -166,14 +166,14 @@ type OpenapiListBackupOfClusterResp struct {
 }
 
 type OpenapiListBackupItem struct {
-	ID             *string                       `json:"id,omitempty"`
-	Name           *string                       `json:"name,omitempty"`
-	Description    *string                       `json:"description,omitempty"`
-	ClusterID      *string                       `json:"cluster_id,omitempty"`
-	Type           *string                       `json:"type,omitempty"`
-	Status         *OpenapiListBackupItemStatus  `json:"status,omitempty"`
-	BackupTime     *string                       `json:"backup_time,omitempty"`
-	ExpiryTime     *string                       `json:"expiry_time,omitempty"`
+	ID              *string                      `json:"id,omitempty"`
+	Name            *string                      `json:"name,omitempty"`
+	Description     *string                      `json:"description,omitempty"`
+	ClusterID       *string                      `json:"cluster_id,omitempty"`
+	Type            *string                      `json:"type,omitempty"`
+	Status          *OpenapiListBackupItemStatus `json:"status,omitempty"`
+	BackupTime      *string                      `json:"backup_time,omitempty"`
+	ExpiryTime      *string                      `json:"expiry_time,omitempty"`
 	BackupSizeBytes *int64                       `json:"backup_size_bytes,omitempty"`
 	CreateTimestamp *string                      `json:"create_timestamp,omitempty"`
 }
@@ -192,16 +192,16 @@ type OpenapiCreateBackupResp struct {
 }
 
 type OpenapiGetBackupOfClusterResp struct {
-	ID             *string                              `json:"id,omitempty"`
-	Name           *string                              `json:"name,omitempty"`
-	Description    *string                              `json:"description,omitempty"`
-	ClusterID      *string                              `json:"cluster_id,omitempty"`
-	Type           *string                              `json:"type,omitempty"`
-	Status         *OpenapiGetBackupOfClusterRespStatus `json:"status,omitempty"`
-	BackupTime     *string                              `json:"backup_time,omitempty"`
-	ExpiryTime     *string                              `json:"expiry_time,omitempty"`
-	BackupSizeBytes *int64                              `json:"backup_size_bytes,omitempty"`
-	CreateTimestamp *string                             `json:"create_timestamp,omitempty"`
+	ID              *string                              `json:"id,omitempty"`
+	Name            *string                              `json:"name,omitempty"`
+	Description     *string                              `json:"description,omitempty"`
+	ClusterID       *string                              `json:"cluster_id,omitempty"`
+	Type            *string                              `json:"type,omitempty"`
+	Status          *OpenapiGetBackupOfClusterRespStatus `json:"status,omitempty"`
+	BackupTime      *string                              `json:"backup_time,omitempty"`
+	ExpiryTime      *string                              `json:"expiry_time,omitempty"`
+	BackupSizeBytes *int64                               `json:"backup_size_bytes,omitempty"`
+	CreateTimestamp *string                              `json:"create_timestamp,omitempty"`
 }
 
 type OpenapiGetBackupOfClusterRespStatus struct {
@@ -215,13 +215,13 @@ type OpenapiListRestoreOfProjectResp struct {
 }
 
 type OpenapiListRestoreRespItem struct {
-	ID              *string                           `json:"id,omitempty"`
-	Name            *string                           `json:"name,omitempty"`
-	BackupID        *string                           `json:"backup_id,omitempty"`
-	Status          *OpenapiListRestoreRespItemStatus `json:"status,omitempty"`
-	ClusterInfo     *OpenapiClusterInfoOfRestore      `json:"cluster,omitempty"`
-	CreateTimestamp *string                           `json:"create_timestamp,omitempty"`
-	FinishedTimestamp *string                         `json:"finished_timestamp,omitempty"`
+	ID                *string                           `json:"id,omitempty"`
+	Name              *string                           `json:"name,omitempty"`
+	BackupID          *string                           `json:"backup_id,omitempty"`
+	Status            *OpenapiListRestoreRespItemStatus `json:"status,omitempty"`
+	ClusterInfo       *OpenapiClusterInfoOfRestore      `json:"cluster,omitempty"`
+	CreateTimestamp   *string                           `json:"create_timestamp,omitempty"`
+	FinishedTimestamp *string                           `json:"finished_timestamp,omitempty"`
 }
 
 type OpenapiListRestoreRespItemStatus struct {
@@ -244,13 +244,13 @@ type OpenapiCreateRestoreResp struct {
 }
 
 type OpenapiGetRestoreResp struct {
-	ID              *string                      `json:"id,omitempty"`
-	Name            *string                      `json:"name,omitempty"`
-	BackupID        *string                      `json:"backup_id,omitempty"`
-	Status          *OpenapiGetRestoreRespStatus `json:"status,omitempty"`
-	ClusterInfo     *OpenapiClusterInfoOfRestore `json:"cluster,omitempty"`
-	CreateTimestamp *string                      `json:"create_timestamp,omitempty"`
-	FinishedTimestamp *string                    `json:"finished_timestamp,omitempty"`
+	ID                *string                      `json:"id,omitempty"`
+	Name              *string                      `json:"name,omitempty"`
+	BackupID          *string                      `json:"backup_id,omitempty"`
+	Status            *OpenapiGetRestoreRespStatus `json:"status,omitempty"`
+	ClusterInfo       *OpenapiClusterInfoOfRestore `json:"cluster,omitempty"`
+	CreateTimestamp   *string                      `json:"create_timestamp,omitempty"`
+	FinishedTimestamp *string                      `json:"finished_timestamp,omitempty"`
 }
 
 type OpenapiGetRestoreRespStatus struct {
@@ -259,12 +259,12 @@ type OpenapiGetRestoreRespStatus struct {
 
 // Private Endpoint API models
 type OpenapiGetPrivateEndpointServiceResp struct {
-	CloudProvider *string   `json:"cloud_provider,omitempty"`
-	Name          *string   `json:"name,omitempty"`
-	Status        *string   `json:"status,omitempty"`
-	DNSName       *string   `json:"dns_name,omitempty"`
-	Port          *int64    `json:"port,omitempty"`
-	AzIDs         []string  `json:"az_ids,omitempty"`
+	CloudProvider *string  `json:"cloud_provider,omitempty"`
+	Name          *string  `json:"name,omitempty"`
+	Status        *string  `json:"status,omitempty"`
+	DNSName       *string  `json:"dns_name,omitempty"`
+	Port          *int64   `json:"port,omitempty"`
+	AzIDs         []string `json:"az_ids,omitempty"`
 }
 
 type OpenapiListPrivateEndpointsResp struct {
@@ -302,7 +302,7 @@ type OpenapiCreatePrivateEndpointResp struct {
 
 // ErrorResponse represents an error response from the API
 type ErrorResponse struct {
-	Code    *int64         `json:"code,omitempty"`
-	Message *string        `json:"message,omitempty"`
-	Details []interface{}  `json:"details,omitempty"`
+	Code    *int64        `json:"code,omitempty"`
+	Message *string       `json:"message,omitempty"`
+	Details []interface{} `json:"details,omitempty"`
 }

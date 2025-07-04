@@ -30,7 +30,7 @@ func TestClient_GetPrivateEndpointService(t *testing.T) {
 				if r.URL.Path != "/api/v1beta/projects/test-project/clusters/test-cluster/private_endpoint_service" {
 					t.Errorf("Expected path /api/v1beta/projects/test-project/clusters/test-cluster/private_endpoint_service, got %s", r.URL.Path)
 				}
-				
+
 				resp := &models.OpenapiGetPrivateEndpointServiceResp{
 					CloudProvider: stringPtr("AWS"),
 					Name:          stringPtr("com.amazonaws.vpce.us-east-1.vpce-svc-12345"),
@@ -39,7 +39,7 @@ func TestClient_GetPrivateEndpointService(t *testing.T) {
 					Port:          int64Ptr(4000),
 					AzIDs:         []string{"use1-az1", "use1-az2"},
 				}
-				
+
 				w.WriteHeader(http.StatusOK)
 				json.NewEncoder(w).Encode(resp)
 			},
@@ -144,12 +144,12 @@ func TestClient_CreatePrivateEndpointService(t *testing.T) {
 				if r.URL.Path != "/api/v1beta/projects/test-project/clusters/test-cluster/private_endpoint_service" {
 					t.Errorf("Expected path /api/v1beta/projects/test-project/clusters/test-cluster/private_endpoint_service, got %s", r.URL.Path)
 				}
-				
+
 				var body map[string]interface{}
 				if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 					t.Errorf("Failed to decode request body: %v", err)
 				}
-				
+
 				resp := &models.OpenapiGetPrivateEndpointServiceResp{
 					CloudProvider: stringPtr("AWS"),
 					Name:          stringPtr("com.amazonaws.vpce.us-east-1.vpce-svc-12345"),
@@ -158,7 +158,7 @@ func TestClient_CreatePrivateEndpointService(t *testing.T) {
 					Port:          int64Ptr(4000),
 					AzIDs:         []string{"use1-az1", "use1-az2"},
 				}
-				
+
 				w.WriteHeader(http.StatusOK)
 				json.NewEncoder(w).Encode(resp)
 			},
@@ -250,7 +250,7 @@ func TestClient_ListPrivateEndpoints(t *testing.T) {
 				if r.URL.Path != "/api/v1beta/projects/test-project/clusters/test-cluster/private_endpoints" {
 					t.Errorf("Expected path /api/v1beta/projects/test-project/clusters/test-cluster/private_endpoints, got %s", r.URL.Path)
 				}
-				
+
 				resp := &models.OpenapiListPrivateEndpointsResp{
 					Items: []*models.OpenapiPrivateEndpointItem{
 						{
@@ -267,7 +267,7 @@ func TestClient_ListPrivateEndpoints(t *testing.T) {
 					},
 					Total: int64Ptr(1),
 				}
-				
+
 				w.WriteHeader(http.StatusOK)
 				json.NewEncoder(w).Encode(resp)
 			},
@@ -371,16 +371,16 @@ func TestClient_CreatePrivateEndpoint(t *testing.T) {
 				if r.URL.Path != "/api/v1beta/projects/test-project/clusters/test-cluster/private_endpoints" {
 					t.Errorf("Expected path /api/v1beta/projects/test-project/clusters/test-cluster/private_endpoints, got %s", r.URL.Path)
 				}
-				
+
 				var body models.OpenapiCreatePrivateEndpointReq
 				if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 					t.Errorf("Failed to decode request body: %v", err)
 				}
-				
+
 				if body.EndpointName == nil || *body.EndpointName != "vpce-12345" {
 					t.Errorf("Expected endpoint name 'vpce-12345', got %v", body.EndpointName)
 				}
-				
+
 				resp := &models.OpenapiCreatePrivateEndpointResp{
 					ID:            stringPtr("pe-123"),
 					CloudProvider: stringPtr("AWS"),
@@ -392,7 +392,7 @@ func TestClient_CreatePrivateEndpoint(t *testing.T) {
 					ServiceName:   stringPtr("com.amazonaws.vpce.us-east-1.vpce-svc-12345"),
 					ServiceStatus: stringPtr("ACTIVE"),
 				}
-				
+
 				w.WriteHeader(http.StatusOK)
 				json.NewEncoder(w).Encode(resp)
 			},
@@ -504,7 +504,7 @@ func TestClient_DeletePrivateEndpoint(t *testing.T) {
 				if r.URL.Path != "/api/v1beta/projects/test-project/clusters/test-cluster/private_endpoints/pe-123" {
 					t.Errorf("Expected path /api/v1beta/projects/test-project/clusters/test-cluster/private_endpoints/pe-123, got %s", r.URL.Path)
 				}
-				
+
 				w.WriteHeader(http.StatusOK)
 				json.NewEncoder(w).Encode(map[string]interface{}{})
 			},
@@ -588,7 +588,7 @@ func TestClient_ListPrivateEndpointsOfProject(t *testing.T) {
 				if r.URL.Path != "/api/v1beta/projects/test-project/private_endpoints" {
 					t.Errorf("Expected path /api/v1beta/projects/test-project/private_endpoints, got %s", r.URL.Path)
 				}
-				
+
 				resp := &models.OpenapiListPrivateEndpointsResp{
 					Items: []*models.OpenapiPrivateEndpointItem{
 						{
@@ -616,7 +616,7 @@ func TestClient_ListPrivateEndpointsOfProject(t *testing.T) {
 					},
 					Total: int64Ptr(2),
 				}
-				
+
 				w.WriteHeader(http.StatusOK)
 				json.NewEncoder(w).Encode(resp)
 			},
@@ -705,7 +705,7 @@ func privateEndpointServiceEqual(a, b *models.OpenapiGetPrivateEndpointServiceRe
 	if a == nil || b == nil {
 		return false
 	}
-	
+
 	return stringPtrEqual(a.CloudProvider, b.CloudProvider) &&
 		stringPtrEqual(a.Name, b.Name) &&
 		stringPtrEqual(a.Status, b.Status) &&
@@ -721,21 +721,21 @@ func privateEndpointsEqual(a, b *models.OpenapiListPrivateEndpointsResp) bool {
 	if a == nil || b == nil {
 		return false
 	}
-	
+
 	if !int64PtrEqual(a.Total, b.Total) {
 		return false
 	}
-	
+
 	if len(a.Items) != len(b.Items) {
 		return false
 	}
-	
+
 	for i, item := range a.Items {
 		if !privateEndpointItemEqual(item, b.Items[i]) {
 			return false
 		}
 	}
-	
+
 	return true
 }
 
@@ -746,7 +746,7 @@ func privateEndpointItemEqual(a, b *models.OpenapiPrivateEndpointItem) bool {
 	if a == nil || b == nil {
 		return false
 	}
-	
+
 	return stringPtrEqual(a.ID, b.ID) &&
 		stringPtrEqual(a.CloudProvider, b.CloudProvider) &&
 		stringPtrEqual(a.ClusterID, b.ClusterID) &&
@@ -765,7 +765,7 @@ func createPrivateEndpointEqual(a, b *models.OpenapiCreatePrivateEndpointResp) b
 	if a == nil || b == nil {
 		return false
 	}
-	
+
 	return stringPtrEqual(a.ID, b.ID) &&
 		stringPtrEqual(a.CloudProvider, b.CloudProvider) &&
 		stringPtrEqual(a.ClusterID, b.ClusterID) &&

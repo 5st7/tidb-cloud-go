@@ -31,7 +31,7 @@ func (c *Client) GetPrivateEndpointService(ctx context.Context, projectID, clust
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s/private_endpoint_service", c.baseURL, APIVersion, projectID, clusterID)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -76,7 +76,7 @@ func (c *Client) CreatePrivateEndpointService(ctx context.Context, projectID, cl
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s/private_endpoint_service", c.baseURL, APIVersion, projectID, clusterID)
-	
+
 	// According to the API spec, the body should be an empty object
 	reqBody := map[string]interface{}{}
 	bodyBytes, err := json.Marshal(reqBody)
@@ -128,7 +128,7 @@ func (c *Client) ListPrivateEndpoints(ctx context.Context, projectID, clusterID 
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s/private_endpoints", c.baseURL, APIVersion, projectID, clusterID)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -177,7 +177,7 @@ func (c *Client) CreatePrivateEndpoint(ctx context.Context, projectID, clusterID
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s/private_endpoints", c.baseURL, APIVersion, projectID, clusterID)
-	
+
 	reqBody, err := json.Marshal(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal request: %w", err)
@@ -231,7 +231,7 @@ func (c *Client) DeletePrivateEndpoint(ctx context.Context, projectID, clusterID
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/clusters/%s/private_endpoints/%s", c.baseURL, APIVersion, projectID, clusterID, endpointID)
-	
+
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return fmt.Errorf("failed to create request: %w", err)
@@ -267,7 +267,7 @@ func (c *Client) ListPrivateEndpointsOfProject(ctx context.Context, projectID st
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/private_endpoints", c.baseURL, APIVersion, projectID)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)

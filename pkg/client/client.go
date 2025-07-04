@@ -23,7 +23,7 @@ const (
 	// DefaultBaseURL is the default TiDB Cloud API base URL
 	DefaultBaseURL = "https://api.tidbcloud.com"
 	// APIVersion is the current API version used by the client
-	APIVersion     = "v1beta"
+	APIVersion = "v1beta"
 )
 
 // Client represents a TiDB Cloud API client.
@@ -77,7 +77,7 @@ func NewClient(publicKey, privateKey string) (*Client, error) {
 //   - error: An error if the request fails
 func (c *Client) ListProjects() (*models.OpenapiListProjectsResp, error) {
 	url := fmt.Sprintf("%s/api/%s/projects", c.baseURL, APIVersion)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -116,7 +116,7 @@ func (c *Client) CreateProject(req *models.OpenapiCreateProjectReq) (*models.Ope
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects", c.baseURL, APIVersion)
-	
+
 	reqBody, err := json.Marshal(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal request: %w", err)
@@ -213,7 +213,7 @@ func (c *Client) executeHTTPRequest(req *http.Request) (*http.Response, error) {
 		authHeader := resp.Header.Get("WWW-Authenticate")
 		if authHeader != "" {
 			resp.Body.Close()
-			
+
 			// Parse the challenge
 			if err := c.digestAuth.ParseChallenge(authHeader); err != nil {
 				return nil, fmt.Errorf("failed to parse auth challenge: %w", err)
@@ -224,7 +224,7 @@ func (c *Client) executeHTTPRequest(req *http.Request) (*http.Response, error) {
 			if bodyBytes != nil {
 				newBody = io.NopCloser(bytes.NewBuffer(bodyBytes))
 			}
-			
+
 			newReq, err := http.NewRequest(req.Method, req.URL.String(), newBody)
 			if err != nil {
 				return nil, fmt.Errorf("failed to create auth request: %w", err)

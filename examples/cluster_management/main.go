@@ -17,7 +17,7 @@ func main() {
 	// Get API credentials from environment variables
 	publicKey := os.Getenv("TIDB_CLOUD_PUBLIC_KEY")
 	privateKey := os.Getenv("TIDB_CLOUD_PRIVATE_KEY")
-	
+
 	if publicKey == "" || privateKey == "" {
 		log.Fatal("Please set TIDB_CLOUD_PUBLIC_KEY and TIDB_CLOUD_PRIVATE_KEY environment variables")
 	}
@@ -43,7 +43,7 @@ func main() {
 
 	// Example 1: Create a new cluster
 	fmt.Println("\n=== Creating a New Cluster ===")
-	
+
 	createReq := &models.OpenapiCreateClusterReq{
 		Name:          stringPtr("sdk-demo-cluster"),
 		ClusterType:   stringPtr("DEDICATED"),
@@ -58,9 +58,9 @@ func main() {
 					NodeQuantity: int64Ptr(1),
 				},
 				TiKV: &models.OpenapiUpdateTiKVComponent{
-					NodeSize:        stringPtr("8C32G"),
-					NodeQuantity:    int64Ptr(3),
-					StorageSizeGib:  int64Ptr(500),
+					NodeSize:       stringPtr("8C32G"),
+					NodeQuantity:   int64Ptr(3),
+					StorageSizeGib: int64Ptr(500),
 				},
 			},
 		},
@@ -79,7 +79,7 @@ func main() {
 	fmt.Println("\n=== Monitoring Cluster Status ===")
 	for i := 0; i < 10; i++ {
 		time.Sleep(30 * time.Second)
-		
+
 		clusterInfo, err := client.GetCluster(projectID, clusterID)
 		if err != nil {
 			log.Printf("Failed to get cluster info: %v", err)
@@ -88,23 +88,23 @@ func main() {
 
 		status := *clusterInfo.Status.ClusterStatus
 		fmt.Printf("Cluster status: %s\n", status)
-		
+
 		if status == "AVAILABLE" {
 			fmt.Println("Cluster is now available!")
 			break
 		}
-		
+
 		if status == "UNAVAILABLE" || status == "FAILED" {
 			fmt.Printf("Cluster creation failed with status: %s\n", status)
 			return
 		}
-		
+
 		fmt.Printf("Waiting for cluster to be ready... (attempt %d/10)\n", i+1)
 	}
 
 	// Example 3: Update cluster configuration
 	fmt.Println("\n=== Updating Cluster Configuration ===")
-	
+
 	updateReq := &models.OpenapiUpdateClusterReq{
 		Config: &models.OpenapiClusterConfig{
 			Components: &models.OpenapiClusterConfigComponents{
@@ -125,7 +125,7 @@ func main() {
 
 	// Example 4: Create a backup
 	fmt.Println("\n=== Creating a Backup ===")
-	
+
 	backupReq := &models.OpenapiCreateBackupReq{
 		Name:        stringPtr("sdk-demo-backup"),
 		Description: stringPtr("Backup created by SDK demo"),
@@ -140,7 +140,7 @@ func main() {
 
 	// Example 5: List cluster backups
 	fmt.Println("\n=== Listing Cluster Backups ===")
-	
+
 	backups, err := client.ListBackups(projectID, clusterID)
 	if err != nil {
 		log.Printf("Failed to list backups: %v", err)
@@ -156,9 +156,9 @@ func main() {
 
 	// Example 6: Set up private endpoint (if supported)
 	fmt.Println("\n=== Setting up Private Endpoint ===")
-	
+
 	ctx := context.Background()
-	
+
 	// First, create the private endpoint service
 	service, err := client.CreatePrivateEndpointService(ctx, projectID, clusterID)
 	if err != nil {
@@ -166,7 +166,7 @@ func main() {
 	} else {
 		fmt.Printf("Private endpoint service created. Status: %s\n", *service.Status)
 		fmt.Printf("Service name: %s\n", *service.Name)
-		
+
 		// In a real scenario, you would create the VPC endpoint in your cloud provider
 		// and then create the private endpoint connection
 		fmt.Println("Next steps:")
@@ -177,7 +177,7 @@ func main() {
 
 	// Cleanup example (commented out for safety)
 	// fmt.Println("\n=== Cleanup (commented out for safety) ===")
-	// 
+	//
 	// // Delete the cluster
 	// err = client.DeleteCluster(projectID, clusterID)
 	// if err != nil {

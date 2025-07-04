@@ -50,7 +50,7 @@ func TestClient_ListClusters(t *testing.T) {
 					},
 					Total: int64Ptr(1),
 				}
-				
+
 				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(response)
 			},
@@ -138,7 +138,7 @@ func TestClient_GetCluster(t *testing.T) {
 						ClusterStatus: stringPtr("AVAILABLE"),
 					},
 				}
-				
+
 				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(response)
 			},
@@ -245,7 +245,7 @@ func TestClient_CreateCluster(t *testing.T) {
 				response := models.OpenapiCreateClusterResp{
 					ClusterID: stringPtr("new-cluster-123"),
 				}
-				
+
 				w.Header().Set("Content-Type", "application/json")
 				json.NewEncoder(w).Encode(response)
 			},

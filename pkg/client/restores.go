@@ -16,7 +16,7 @@ func (c *Client) ListRestores(projectID string) (*models.OpenapiListRestoreOfPro
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/restores", c.baseURL, APIVersion, projectID)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -50,7 +50,7 @@ func (c *Client) GetRestore(projectID, restoreID string) (*models.OpenapiGetRest
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/restores/%s", c.baseURL, APIVersion, projectID, restoreID)
-	
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -84,7 +84,7 @@ func (c *Client) CreateRestore(projectID string, req *models.OpenapiCreateRestor
 	}
 
 	url := fmt.Sprintf("%s/api/%s/projects/%s/restores", c.baseURL, APIVersion, projectID)
-	
+
 	reqBody, err := json.Marshal(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal request: %w", err)
