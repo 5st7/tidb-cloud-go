@@ -2,7 +2,6 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/5st7/tidb-cloud-go.svg)](https://pkg.go.dev/github.com/5st7/tidb-cloud-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/5st7/tidb-cloud-go)](https://goreportcard.com/report/github.com/5st7/tidb-cloud-go)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An unofficial Go SDK for the [TiDB Cloud](https://www.pingcap.com/tidb-cloud/) API that provides comprehensive support for managing TiDB Cloud resources including projects, clusters, backups, restores, and private endpoints.
 
@@ -294,100 +293,3 @@ The SDK automatically handles rate limiting and retries:
 // - Not found errors (404)
 ```
 
-## Supported Operations
-
-✅ **Projects**
-- List Projects
-- Create Project
-
-✅ **Clusters** 
-- List Clusters
-- Get Cluster Details
-- Create Cluster
-- Update Cluster
-- Delete Cluster
-
-✅ **Backups**
-- List Backups
-- Get Backup Details  
-- Create Backup
-- Delete Backup
-
-✅ **Restores**
-- List Restores
-- Get Restore Details
-- Create Restore
-
-✅ **Private Endpoints**
-- Create/Get Private Endpoint Service
-- List Private Endpoints
-- Create Private Endpoint
-- Delete Private Endpoint
-
-✅ **Provider Regions**
-- List Available Regions
-
-## Examples
-
-See the [examples](./examples) directory for complete examples:
-
-- [Basic Usage](./examples/basic_usage/main.go) - Authentication and basic operations
-- [Cluster Management](./examples/cluster_management/main.go) - Create, update, delete clusters
-- [Backup & Restore](./examples/backup_restore/main.go) - Backup and restore operations
-- [Private Endpoints](./examples/private_endpoints/main.go) - Private network connectivity
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-### Development
-
-1. Clone the repository:
-```bash
-git clone https://github.com/5st7/tidb-cloud-go.git
-cd tidb-cloud-go
-```
-
-2. Install dependencies:
-```bash
-go mod download
-```
-
-3. Run tests:
-```bash
-go test ./pkg/...
-```
-
-4. Run examples (with your API credentials):
-```bash
-export TIDB_CLOUD_PUBLIC_KEY="your-public-key"
-export TIDB_CLOUD_PRIVATE_KEY="your-private-key"
-go run examples/basic_usage/main.go
-```
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Disclaimer
-
-This is an unofficial SDK and is not affiliated with or endorsed by PingCAP Inc. Use at your own risk.
-
-## Support
-
-- [TiDB Cloud Documentation](https://docs.pingcap.com/tidbcloud/)
-- [TiDB Cloud API Reference](https://docs.pingcap.com/tidbcloud/api/v1beta)
-- [Issue Tracker](https://github.com/5st7/tidb-cloud-go/issues)
-
-## Changelog
-
-### v1.0.0 (Initial Release)
-
-- Complete TiDB Cloud API coverage
-- HTTP Digest Authentication
-- Automatic retry with exponential backoff
-- Comprehensive error handling
-- Context support for all operations
-- Private endpoint management
-- Full test coverage
-- Complete documentation and examples
