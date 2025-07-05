@@ -124,7 +124,7 @@ type OpenapiClusterConfig struct {
 }
 
 type OpenapiCreateClusterResp struct {
-	ClusterID *string `json:"cluster_id,omitempty"`
+	ClusterID *string `json:"id,omitempty"`
 }
 
 type OpenapiUpdateClusterReq struct {
